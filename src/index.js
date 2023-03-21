@@ -7,7 +7,7 @@ function displayTime() {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday",
+    "Saturday"
   ];
   let now = new Date();
   let weekday = days[now.getDay()];
@@ -78,7 +78,8 @@ function showPosition(position) {
   }
 
   let locationButton = document.querySelector("#current-location-button");
-  locationButton.addEventListener("click", function () {
+  locationButton.addEventListener("click", function (event) {
+    event.preventDefault();
     axios.get(`${apiURL}`).then(currentWeather);
   });
 }
