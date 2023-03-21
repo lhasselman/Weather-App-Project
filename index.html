@@ -15,69 +15,74 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <body>
-      <div class="container">
-        <div class="weather-app">
-          <div class="d-flex align-items-centger">
-            <form class="search-form">
-              <div class="d-flex justify-content-between">
-                <div class="col-9">
-                  <input
-                    type="search"
-                    placeholder="Type a city.."
-                    autofocus="on"
-                    autocomplete="off"
-                    class="form-control shadow-sm"
-                    id="city-input"
-                  />
-                </div>
-                <div class="col-3 d-flex">
-                  <input
-                    type="submit"
-                    value="Search"
-                    class="form-control btn btn-primary shadow-sm flex-grow-1"
-                    id="search-button"
-                  />
-                  <button
-                    id="current-location-button"
-                    class="btn btn-outline-secondary ms-2 flex-grow-1"
-                  >
-                    Current Location
-                  </button>
-                </div>
+    <div class="container">
+      <div class="weather-app">
+        <div class="d-flex align-items-centger">
+          <form class="search-form">
+            <div class="d-flex justify-content-between">
+              <div class="col-9">
+                <input
+                  type="search"
+                  placeholder="Type a city.."
+                  autofocus="on"
+                  autocomplete="off"
+                  class="form-control shadow-sm"
+                  id="city-input"
+                />
               </div>
-            </form>
+              <div class="col-3 d-flex">
+                <input
+                  type="submit"
+                  value="Search"
+                  class="form-control btn btn-primary shadow-sm flex-grow-1"
+                  id="search-button"
+                />
+                <button
+                  id="current-location-button"
+                  class="btn btn-outline-secondary ms-2 flex-grow-1"
+                >
+                  Current Location
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <h1 id="search-city"></h1>
+        <ul>
+          <li id="weekday-and-time">Weekday HH:MM</li>
+          <li>Partly Cloudy</li>
+        </ul>
+        <div class="row">
+          <div class="col-6">
+            <div class="clearfix">
+              <img src=images/partly_cloudy.png class="weather-icon float-left"
+              />
+              <div class="float-left">
+                <span class="temperature">19</span>
+                <span class="units">
+                  <a href="#" id="celsius-link" class="active">°C</a> |
+                  <a href="#" id="fahrenheit-link">°F</a>
+                </span>
+              </div>
+            </div>
           </div>
-          <h1 id="search-city">City, Country</h1>
-          <ul>
-            <li id="weekday-and-time">Weekday HH:MM</li>
-            <li>Partly Cloudy</li>
-          </ul>
-          <div class="row">
-            <div class="col-6">
-              <div class="clearfix">
-                <img src=images/partly_cloudy.png class="weather-icon
-                float-left" />
-                <div class="float-left">
-                  <span class="temperature">19</span>
-                  <span class="units">
-                    <a href="#" id="celsius-link" class="active">°C</a> |
-                    <a href="#" id="fahrenheit-link">°F</a>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <ul>
-                <li>Precipitation: 20%</li>
-                <li>Humidity: 80%</li>
-                <li>Wind: 5 m/h</li>
-              </ul>
-            </div>
+          <div class="col-6">
+            <ul>
+              <li>Precipitation: 20%</li>
+              <li>Humidity: 80%</li>
+              <li>Wind: 5 m/h</li>
+            </ul>
           </div>
         </div>
       </div>
-      <script src="src/index.js"></script>
-    </body>
+      <div class="github-link">
+        <a
+          href="https://github.com/lhasselman/Weather-App-Project"
+          id="netlify-link"
+          >See my code on Github</a
+        >
+      </div>
+    </div>
+    <script src="src/index.js"></script>
   </body>
 </html>

@@ -7,7 +7,7 @@ function displayTime() {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
   let now = new Date();
   let weekday = days[now.getDay()];
@@ -25,7 +25,7 @@ let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
 function citySearch(event) {
   event.preventDefault();
   let cityInputValue = document.querySelector("#city-input").value;
-  let cityInput = `${cityInputValue}, Country`;
+  let cityInput = `${cityInputValue}`;
   searchCity.textContent = cityInput;
   let units = `metric`;
   let apiURL = `${apiEndpoint}units=${units}&q=${cityInputValue}&appid=${apiKey}`;
