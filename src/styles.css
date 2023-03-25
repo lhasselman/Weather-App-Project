@@ -69,3 +69,12 @@ li {
 .github-link {
   text-align: center;
 }
+.coded-by {
+  text-decoration: none;
+}
+.coded-by:hover {
+  text-decoration: underline;
+}
+.overview {
+  margin-bottom: 20px;
+}
