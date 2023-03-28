@@ -48,10 +48,10 @@
           </form>
         </div>
         <div class="overview">
-          <h1 id="search-city"></h1>
+          <h1 id="city" class="city-name"></h1>
           <ul>
-            <li id="weekday-and-time">Weekday HH:MM</li>
-            <li>Partly Cloudy</li>
+            <li id="weekday-and-time"></li>
+            <li id="description"></li>
           </ul>
         </div>
         <div class="row">
@@ -60,7 +60,7 @@
               <img src=images/partly_cloudy.png class="weather-icon float-left"
               />
               <div class="float-left">
-                <span class="temperature">19</span>
+                <span class="temperature"></span>
                 <span class="units">
                   <a href="#" id="celsius-link" class="active">°C</a> |
                   <a href="#" id="fahrenheit-link">°F</a>
@@ -69,10 +69,10 @@
             </div>
           </div>
           <div class="col-6">
-            <ul>
-              <li>Precipitation: 20%</li>
-              <li>Humidity: 80%</li>
-              <li>Wind: 5 m/h</li>
+            <ul id="weather-extras">
+              <li id="precip">Precipitation:</li>
+              <li id="humidity">Humidity:</li>
+              <li id="wind">Wind:</li>
             </ul>
           </div>
         </div>
