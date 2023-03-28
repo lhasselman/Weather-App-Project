@@ -67,11 +67,11 @@ function getPrecip(coordinates) {
 }
 //
 function displayTemp(response) {
-  let celsiusTemperature = Math.round(response.data.main.temp);
+  celsiusTemperature = response.data.main.temp;
   let humidityResponse = response.data.main.humidity;
   let windResponse = response.data.wind.speed;
   let windSpeed = Math.round(windResponse * 3.6);
-  tempElement.innerHTML = celsiusTemperature;
+  tempElement.innerHTML = Math.round(celsiusTemperature);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   windElement.innerHTML = `Wind: ${windSpeed} km/h`;
@@ -95,30 +95,6 @@ function handleSubmit(event) {
   let cityInputElement = document.querySelector("#city-input");
   citySearch(cityInputElement.value);
 }
-
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", handleSubmit);
-//
-
-let temperature = document.querySelector(".temperature");
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-let celsiusLink = document.querySelector("#celsius-link");
-
-function displayTemperatureFahrenheit(event) {
-  event.preventDefault();
-  temperature.innerHTML = "66";
-  fahrenheitLink.classList.remove("active");
-  celsiusLink.classList.add("active");
-}
-
-function displayTemperatureCelsius() {
-  temperature.innerHTML = "19";
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
-
-celsiusLink.addEventListener("click", displayTemperatureCelsius);
-fahrenheitLink.addEventListener("click", displayTemperatureFahrenheit);
 //
 function showPosition(position) {
   let latitude = position.coords.latitude;
@@ -158,5 +134,30 @@ function showPosition(position) {
     });
   });
 }
+//
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let celsiusLink = document.querySelector("#celsius-link");
+
+function displayTemperatureFahrenheit(event) {
+  event.preventDefault();
+  fahrenheitLink.classList.add("active");
+  celsiusLink.classList.remove("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  tempElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayTemperatureCelsius(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  tempElement.innerHTML = Math.round(celsiusTemperature);
+}
+let celsiusTemperature = null;
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", handleSubmit);
+
+celsiusLink.addEventListener("click", displayTemperatureCelsius);
+fahrenheitLink.addEventListener("click", displayTemperatureFahrenheit);
 
 navigator.geolocation.getCurrentPosition(showPosition);
