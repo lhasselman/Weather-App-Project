@@ -18,7 +18,7 @@
     <div class="container">
       <div class="weather-app">
         <div class="d-flex align-items-centger">
-          <form class="search-form">
+          <form id="search-form">
             <div class="d-flex justify-content-between">
               <div class="col-9">
                 <input
@@ -35,7 +35,6 @@
                   type="submit"
                   value="Search"
                   class="form-control btn btn-primary shadow-sm flex-grow-1"
-                  id="search-button"
                 />
                 <button
                   id="current-location-button"
@@ -50,7 +49,7 @@
         <div class="overview">
           <h1 id="city" class="city-name"></h1>
           <ul>
-            <li id="weekday-and-time"></li>
+            <li id="date"></li>
             <li id="description"></li>
           </ul>
         </div>
@@ -58,7 +57,7 @@
           <div class="col-6">
             <div class="clearfix">
               <img src=images/partly_cloudy.png class="weather-icon float-left"
-              />
+              id="icon" />
               <div class="float-left">
                 <span class="temperature"></span>
                 <span class="units">
