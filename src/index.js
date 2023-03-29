@@ -83,7 +83,6 @@ function displayTemp(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
   getPrecip(response.data.coord);
-  console.log(response);
 }
 
 function citySearch(city) {
@@ -96,48 +95,37 @@ function handleSubmit(event) {
   citySearch(cityInputElement.value);
 }
 //
-function showPosition(position) {
+function currentWeather(data1, data2) {
+  celsiusTemperature = data1.main.temp;
+  let currentTemp = Math.round(celsiusTemperature);
+  let currentCity = data1.name;
+  let description = document.querySelector("#description");
+  let precipChanceResponse = data2.hourly[0].pop;
+  let currentPrecipChance = (precipChanceResponse * 100).toFixed(0);
+  let humidityResponse = data2.current.humidity;
+  let windResponse = data2.current.wind_speed;
+  let windSpeed = Math.round(windResponse * 3.6);
+  precipElement.innerHTML = `Precipitation: ${currentPrecipChance}%`;
+  humidityElement.innerHTML = `Humidity: ${humidityResponse}%`;
+  windElement.innerHTML = `Wind: ${windSpeed} km/h`;
+  tempElement.innerHTML = currentTemp;
+  cityElement.innerHTML = currentCity;
+  description.innerHTML = data1.weather[0].description;
+}
+function returnPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiURL1 = `${apiEndpoint}weather?lat=${latitude}&lon=${longitude}&units=${unit}&appid=${apiKey}`;
   let apiURL2 = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${apiKey}`;
-  function currentWeather(data1, data2) {
-    let currentTemp = Math.round(data1.main.temp);
-    let currentCity = data1.name;
-    let description = document.querySelector("#description");
-    let precipChanceResponse = data2.hourly[0].pop;
-    let currentPrecipChance = (precipChanceResponse * 100).toFixed(0);
-    let currentPrecipExtra = `Precipitation: ${currentPrecipChance}%`;
-    let humidityResponse = data2.current.humidity;
-    let windResponse = data2.current.wind_speed;
-    let windSpeed = Math.round(windResponse * 3.6);
-    precipElement.innerHTML = currentPrecipExtra;
-    humidityElement.innerHTML = `Humidity: ${humidityResponse}%`;
-    windElement.innerHTML = `Wind: ${windSpeed} km/h`;
-    tempElement.innerHTML = currentTemp;
-    cityElement.innerHTML = currentCity;
-    description.innerHTML = data1.weather[0].description;
-  }
-  let locationButton = document.querySelector("#current-location-button");
-  locationButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    axios.get(`${apiURL1}`).then((response1) => {
-      data1 = response1.data;
-      axios.get(`${apiURL2}`).then((response2) => {
-        data2 = response2.data;
-        combinedData = {
-          data1: data1,
-          data2: data2,
-        };
-        currentWeather(data1, data2);
-      });
+  axios.get(`${apiURL1}`).then((response1) => {
+    data1 = response1.data;
+    axios.get(`${apiURL2}`).then((response2) => {
+      data2 = response2.data;
+      currentWeather(data1, data2);
     });
   });
 }
 //
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-let celsiusLink = document.querySelector("#celsius-link");
-
 function displayTemperatureFahrenheit(event) {
   event.preventDefault();
   fahrenheitLink.classList.add("active");
@@ -152,12 +140,22 @@ function displayTemperatureCelsius(event) {
   fahrenheitLink.classList.remove("active");
   tempElement.innerHTML = Math.round(celsiusTemperature);
 }
+//
 let celsiusTemperature = null;
-
+//
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
+//
+let locationButton = document.querySelector("#current-location-button");
+locationButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(returnPosition);
+});
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let celsiusLink = document.querySelector("#celsius-link");
 
 celsiusLink.addEventListener("click", displayTemperatureCelsius);
 fahrenheitLink.addEventListener("click", displayTemperatureFahrenheit);
 
-navigator.geolocation.getCurrentPosition(showPosition);
+navigator.geolocation.getCurrentPosition(returnPosition);
