@@ -1,4 +1,17 @@
+//global variables
 let dateElement = document.querySelector("#date");
+let apiKey = "97f8e93f00107773f88eafd933ce86b7";
+let apiEndpoint = "https://api.openweathermap.org/data/2.5/";
+let unit = `metric`;
+let cityElement = document.querySelector("#city");
+let precipElement = document.querySelector("#precip");
+let humidityElement = document.querySelector("#humidity");
+let windElement = document.querySelector("#wind");
+let tempElement = document.querySelector(".temperature");
+let descriptionElement = document.querySelector("#description");
+let iconElement = document.querySelector("#icon");
+let forecastElement = document.querySelector("#forecast");
+//
 function displayTime() {
   let days = [
     "Sunday",
@@ -43,8 +56,6 @@ function formatDate(timestamp) {
 }
 //
 function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-
   let days = ["Thu", "Fri", "Sat", "Sun"];
 
   let forecastHTML = `<div class="row">`;
@@ -72,16 +83,7 @@ function displayForecast() {
   console.log(forecastHTML);
 }
 //
-let apiKey = "97f8e93f00107773f88eafd933ce86b7";
-let apiEndpoint = "https://api.openweathermap.org/data/2.5/";
-let unit = `metric`;
-let cityElement = document.querySelector("#city");
-let precipElement = document.querySelector("#precip");
-let humidityElement = document.querySelector("#humidity");
-let windElement = document.querySelector("#wind");
-let tempElement = document.querySelector(".temperature");
-let descriptionElement = document.querySelector("#description");
-let iconElement = document.querySelector("#icon");
+
 //
 function updatePrecip(response) {
   let precipChanceResponse = response.data.hourly[0].pop;
