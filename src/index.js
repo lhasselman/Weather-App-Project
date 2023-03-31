@@ -80,7 +80,6 @@ function displayForecast() {
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 //
 
@@ -148,11 +147,48 @@ function currentWeather(data1, data2) {
   );
   iconElement.setAttribute("alt", data1.weather[0].description);
 }
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
 function currentForecast(data2) {
-  let maxTemp = data2.daily[0].max;
-  let minTemp = data2.daily[0].min;
-  let description = data2.daily[0].weather[0].description;
+  let forecast = data2.daily;
   console.log(data2.daily);
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+      <div class="col-2">
+        <div class="weather-forecast-weekday">${formatForecastDay(
+          forecastDay.dt
+        )}</div>
+        <img
+          src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
+          alt=""
+          width="42"
+        />
+        <div class="weather-forecast-temps">
+          <span class="weather-forecast-temps-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+          <span class="weather-forecast-temps-min"> ${Math.round(
+            forecastDay.temp.min
+          )}° </span>
+        </div>
+      </div>
+  `;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 function returnPosition(position) {
   let latitude = position.coords.latitude;
