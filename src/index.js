@@ -55,27 +55,36 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 //
-function displayForecast() {
-  let days = ["Thu", "Fri", "Sat", "Sun"];
-
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
-        <div class="weather-forecast-date">${day}</div>
+        <div class="weather-forecast-weekday">${formatForecastDay(
+          forecastDay.dt
+        )}</div>
         <img
-          src="http://openweathermap.org/img/wn/50d@2x.png"
+          src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
           alt=""
           width="42"
         />
-        <div class="weather-forecast-temperatures">
-          <span class="weather-forecast-temperature-max"> 18° </span>
-          <span class="weather-forecast-temperature-min"> 12° </span>
+        <div class="weather-forecast-temps">
+          <span class="weather-forecast-temps-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+          <span class="weather-forecast-temps-min"> ${Math.round(
+            forecastDay.temp.min
+          )}° </span>
         </div>
       </div>
   `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -92,8 +101,9 @@ function updatePrecip(response) {
 function getPrecip(coordinates) {
   let latitude = coordinates.lat;
   let longitude = coordinates.lon;
-  let apiURL = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${apiKey}`;
+  let apiURL = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${apiKey}`;
   axios.get(apiURL).then(updatePrecip);
+  axios.get(apiURL).then(displayForecast);
 }
 //
 function displayTemp(response) {
@@ -155,8 +165,6 @@ function formatForecastDay(timestamp) {
 }
 function currentForecast(data2) {
   let forecast = data2.daily;
-  console.log(data2.daily);
-
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
