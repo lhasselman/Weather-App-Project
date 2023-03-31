@@ -146,16 +146,23 @@ function currentWeather(data1, data2) {
   );
   iconElement.setAttribute("alt", data1.weather[0].description);
 }
+function currentForecast(data2) {
+  let maxTemp = data2.daily[0].max;
+  let minTemp = data2.daily[0].min;
+  let description = data2.daily[0].weather[0].description;
+  console.log(data2.daily);
+}
 function returnPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiURL1 = `${apiEndpoint}weather?lat=${latitude}&lon=${longitude}&units=${unit}&appid=${apiKey}`;
-  let apiURL2 = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${apiKey}`;
+  let apiURL2 = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${apiKey}`;
   axios.get(`${apiURL1}`).then((response1) => {
     data1 = response1.data;
     axios.get(`${apiURL2}`).then((response2) => {
       data2 = response2.data;
       currentWeather(data1, data2);
+      currentForecast(data2);
     });
   });
 }
@@ -174,8 +181,6 @@ function displayTemperatureCelsius(event) {
   fahrenheitLink.classList.remove("active");
   tempElement.innerHTML = Math.round(celsiusTemperature);
 }
-//
-displayForecast();
 //
 let celsiusTemperature = null;
 //
