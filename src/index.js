@@ -56,8 +56,7 @@ let iconElement = document.querySelector("#icon");
 function updatePrecip(response) {
   let precipChanceResponse = response.data.hourly[0].pop;
   let currentPrecipChance = (precipChanceResponse * 100).toFixed(0);
-  let currentPrecipExtra = `Precipitation: ${currentPrecipChance}%`;
-  precipElement.innerHTML = currentPrecipExtra;
+  precipElement.innerHTML = `Precipitation: ${currentPrecipChance}%`;
 }
 function getPrecip(coordinates) {
   let latitude = coordinates.lat;
