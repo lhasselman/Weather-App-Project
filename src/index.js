@@ -110,7 +110,6 @@ function currentWeather(data1, data2) {
   tempElement.innerHTML = currentTemp;
   cityElement.innerHTML = currentCity;
   description.innerHTML = data1.weather[0].description;
-  console.log(data1);
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${data1.weather[0].icon}@2x.png`
