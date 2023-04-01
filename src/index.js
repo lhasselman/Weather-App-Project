@@ -77,10 +77,10 @@ function displayForecast(response) {
         <div class="weather-forecast-temps">
           <span class="weather-forecast-temps-max"> ${Math.round(
             forecastDay.temp.max
-          )}° </span>
+          )}°C </span>
           <span class="weather-forecast-temps-min"> ${Math.round(
             forecastDay.temp.min
-          )}° </span>
+          )}°C </span>
         </div>
       </div>
   `;
@@ -98,7 +98,7 @@ function updatePrecip(response) {
   let currentPrecipChance = (precipChanceResponse * 100).toFixed(0);
   precipElement.innerHTML = `Precipitation: ${currentPrecipChance}%`;
 }
-function getPrecip(coordinates) {
+function getWeather(coordinates) {
   let latitude = coordinates.lat;
   let longitude = coordinates.lon;
   let apiURL = `${apiEndpoint}onecall?units=${unit}&lat=${latitude}&lon=${longitude}&exclude=minutely&appid=${apiKey}`;
@@ -122,7 +122,7 @@ function displayTemp(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
-  getPrecip(response.data.coord);
+  getWeather(response.data.coord);
 }
 
 function citySearch(city) {
