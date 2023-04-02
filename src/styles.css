@@ -100,3 +100,12 @@ li {
 .overview {
   margin-bottom: 20px;
 }
+.forecast-to-fahrenheit {
+  color: #7c7c7c;
+  text-align: center;
+  font-size: 12px;
+}
+.github-link {
+  font-family: monospace;
+  font-size: 10px;
+}
